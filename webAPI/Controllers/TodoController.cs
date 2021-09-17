@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using Application.Commands;
 using Application.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -22,5 +23,10 @@ namespace webAPI.Controllers
             var response = await mediator.Send(new GetTodoById.Query(id));
             return Response == null ? NotFound() : Ok(response);
         }
+
+        [HttpPost("")]
+        public async Task<IActionResult> AddTodo(AddTodo.Command command) => Ok(await mediator.Send(command));
+                                    
+
     }
 }
